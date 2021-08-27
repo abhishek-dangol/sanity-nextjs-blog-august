@@ -1,8 +1,25 @@
+import styles from "../../styles/Post.module.css"
+import imageUrlBuilder from "@sanity/image-url"
+import { useState, useEffect } from "react";
+
 export default function Post({ title, body, image }) {
-    console.log(title, body, image);
+    //console.log(title, body, image);
+    const [imageUrl, setImageUrl] = useState('');
+
+    useEffect(() => {
+        const imgBuilder = imageUrlBuilder({
+            projectId: "iwmlzgp5",
+            dataset: 'production',
+        });
+        setImageUrl(imgBuilder.image(image));
+    }, [image])
+
     return (
         <div>
-            <h1>I am a Post</h1>
+            <div className={styles.main}>
+                <h1>{title}</h1>
+                {imageUrl && <img className={styles.mainImage} src={imageUrl}/>}
+            </div>
         </div>
     )
 }
