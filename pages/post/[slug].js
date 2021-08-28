@@ -1,6 +1,8 @@
 import styles from "../../styles/Post.module.css"
 import imageUrlBuilder from "@sanity/image-url"
 import { useState, useEffect } from "react";
+import BlockContent from "@sanity/block-content-to-react"
+import Toolbar from "../../components/toolbar";
 
 export default function Post({ title, body, image }) {
     //console.log(title, body, image);
@@ -16,9 +18,13 @@ export default function Post({ title, body, image }) {
 
     return (
         <div>
+            <Toolbar />
             <div className={styles.main}>
                 <h1>{title}</h1>
-                {imageUrl && <img className={styles.mainImage} src={imageUrl}/>}
+                {imageUrl && <img className={styles.mainImage} src={imageUrl} />}
+                <div className={styles.body}>
+                    <BlockContent blocks={body}/>
+                </div>
             </div>
         </div>
     )
